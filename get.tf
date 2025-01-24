@@ -20,3 +20,16 @@ resource "null_resource" "log_get_request" {
     status_code = data.http.httpbin_get.status_code
   }
 }
+
+
+output "get_url" {
+  value = data.http.httpbin_get.url
+}
+
+output "status_code" {
+  value = data.http.httpbin_get.status_code
+}
+
+output "response_body_origin" {
+  value = jsondecode(data.http.httpbin_get.response_body).origin
+}

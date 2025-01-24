@@ -2,7 +2,7 @@
 
 # Define variables for dynamic values
 variable "name" {
-  default = "Bharath"
+  default = "Bhrath1345"
 }
 
 variable "email" {
@@ -33,18 +33,20 @@ data "http" "httpbin_post" {
 resource "null_resource" "log_post_request" {
   provisioner "local-exec" {
     command = <<EOT
-      echo "POST Request Made to ${data.http.httpbin_post.url}"
+      echo "POST Request Made to https://httpbin.org/post"
       echo "Response Status: ${data.http.httpbin_post.status_code}"
       echo "Payload Sent: $(templatefile('${path.module}/payloads/test.json.tpl', {
-        name  = var.name,
-        email = var.email,
-        city  = var.city
-      }))"
-      echo "Response Body: ${data.http.httpbin_post.response_body} | jq ."
+        name  = "${var.name}",
+        email = "${var.email}",
+        city  = "${var.city}"
+      }))" >> log.txt
     EOT
   }
 
+  # Use triggers to force execution when variables change
   triggers = {
-    status_code = data.http.httpbin_post.status_code
+    name  = var.name
+    email = var.email
+    city  = var.city
   }
 }
