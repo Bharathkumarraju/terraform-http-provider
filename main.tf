@@ -5,7 +5,7 @@ variable "city" {
 }
 
 variable "api_key" {
-  default = "dc7bd84988c82bb57791199900fee5f6"
+  default = "dc7bd84988c82bb57791234"
 }
 
 data "http" "weather" {
